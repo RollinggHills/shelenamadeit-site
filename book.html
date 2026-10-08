@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Book a Consultation — Shelena Made It</title>
+  <meta name="description" content="Request a 30-minute consultation for bespoke bridal, prom, evening wear, suits, children's couture, alterations or sewing classes with Shelena Shulterbrandt.">
+  <meta name="theme-color" content="#f7f3ed">
+  <link rel="canonical" href="https://shelenamadeit.com/book.html">
+  <link rel="icon" href="assets/img/logo-ink.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="book-page">
+  <a class="skip-link" href="#main">Skip to the form</a>
+
+  <header class="site-header book-header">
+    <div class="wrap">
+      <a class="brand" href="./" aria-label="Shelena Made It — home">
+        <img src="assets/img/logo-ink.png" alt="" width="471" height="208">
+        <span>Shelena<br>Made It</span>
+      </a>
+      <a class="exit" href="./"><span aria-hidden="true">←</span> Back to site</a>
+    </div>
+    <div class="progress" role="progressbar" aria-label="Booking progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1"><span></span></div>
+  </header>
+
+  <main id="main" class="wrap book-layout">
+    <noscript>
+      <p>Our booking form needs JavaScript. You can also text or call Shelena at (832) 373-9260 or email shebyshelena@gmail.com.</p>
+    </noscript>
+
+    <form id="booking" novalidate>
+      <!-- honeypot: real people never see or fill this -->
+      <div class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+
+      <!-- STEP 1 -->
+      <section class="step" data-step="1" aria-labelledby="s1-title">
+        <p class="step-count">Step 1 of 4</p>
+        <h1 id="s1-title" tabindex="-1">What are we <em>creating?</em></h1>
+        <p class="intro">Pick the closest fit. You can tell us everything else at your consultation.</p>
+        <fieldset class="q">
+          <legend class="sr-only">Service</legend>
+          <div class="choice-grid" id="service-options"><!-- filled from config.js --></div>
+          <p class="error" id="service-error" role="alert"></p>
+        </fieldset>
+        <div class="step-nav">
+          <button class="btn" type="button" data-next>Continue <span class="arrow" aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step" data-step="2" aria-labelledby="s2-title" hidden>
+        <p class="step-count">Step 2 of 4</p>
+        <h1 id="s2-title" tabindex="-1">Tell us about the <em>occasion</em></h1>
+        <p class="intro" id="s2-intro">A few quick details so Shelena can prepare for your consultation.</p>
+
+        <!-- event date: bespoke + alterations -->
+        <div class="q" data-for="bespoke alteration">
+          <div class="field">
+            <label for="event-date">Event date</label>
+            <input id="event-date" name="event_date" type="date" aria-describedby="date-error timeline-msg">
+          </div>
+          <label class="check"><input type="checkbox" id="no-date" name="no_date"> No date yet / just exploring</label>
+          <p class="error" id="date-error" role="alert"></p>
+          <div class="timeline-msg" id="timeline-msg" role="status" aria-live="polite" hidden></div>
+        </div>
+
+        <!-- who: bespoke -->
+        <fieldset class="q" data-for="bespoke">
+          <legend>Who is it for?</legend>
+          <div class="chips">
+            <span class="chip"><input type="radio" name="for_whom" id="w-me" value="Me" checked><label for="w-me">Me</label></span>
+            <span class="chip"><input type="radio" name="for_whom" id="w-child" value="My child"><label for="w-child">My child</label></span>
+            <span class="chip"><input type="radio" name="for_whom" id="w-other" value="Someone else"><label for="w-other">Someone else</label></span>
+            <span class="chip"><input type="radio" name="for_whom" id="w-group" value="A group / bridal party"><label for="w-group">A group</label></span>
+          </div>
+        </fieldset>
+
+        <!-- budget: bespoke -->
+        <fieldset class="q" data-for="bespoke">
+          <legend>Budget in mind <span class="optional">(optional)</span></legend>
+          <p class="hint">Helps Shelena suggest fabrics and details that fit. Nothing is locked in.</p>
+          <div class="chips" id="budget-chips"><!-- filled per service --></div>
+        </fieldset>
+
+        <!-- garment: alterations -->
+        <fieldset class="q" data-for="alteration">
+          <legend>What needs altering?</legend>
+          <div class="chips">
+            <span class="chip"><input type="radio" name="garment" id="g-wed" value="Wedding gown" checked><label for="g-wed">Wedding gown</label></span>
+            <span class="chip"><input type="radio" name="garment" id="g-formal" value="Formal / prom dress"><label for="g-formal">Formal dress</label></span>
+            <span class="chip"><input type="radio" name="garment" id="g-suit" value="Suit"><label for="g-suit">Suit</label></span>
+            <span class="chip"><input type="radio" name="garment" id="g-other" value="Something else"><label for="g-other">Something else</label></span>
+          </div>
+        </fieldset>
+
+        <!-- level: classes -->
+        <fieldset class="q" data-for="class">
+          <legend>Your sewing experience</legend>
+          <div class="chips">
+            <span class="chip"><input type="radio" name="level" id="l-new" value="Brand new" checked><label for="l-new">Brand new</label></span>
+            <span class="chip"><input type="radio" name="level" id="l-some" value="Some experience"><label for="l-some">Some experience</label></span>
+            <span class="chip"><input type="radio" name="level" id="l-conf" value="Confident"><label for="l-conf">Confident</label></span>
+          </div>
+        </fieldset>
+        <div class="q field" data-for="class">
+          <label for="class-goal">What would you love to make? <span class="optional">(optional)</span></label>
+          <input id="class-goal" name="class_goal" type="text" placeholder="e.g. my own prom dress, simple alterations">
+        </div>
+
+        <!-- size: ready-to-wear -->
+        <fieldset class="q" data-for="shop">
+          <legend>Your size</legend>
+          <div class="chips" id="size-chips">
+            <span class="chip"><input type="radio" name="size" id="z-xs" value="XS"><label for="z-xs">XS</label></span>
+            <span class="chip"><input type="radio" name="size" id="z-s" value="S"><label for="z-s">S</label></span>
+            <span class="chip"><input type="radio" name="size" id="z-m" value="M"><label for="z-m">M</label></span>
+            <span class="chip"><input type="radio" name="size" id="z-l" value="L"><label for="z-l">L</label></span>
+            <span class="chip"><input type="radio" name="size" id="z-xl" value="XL"><label for="z-xl">XL</label></span>
+            <span class="chip"><input type="radio" name="size" id="z-2x" value="2XL"><label for="z-2x">2XL</label></span>
+            <span class="chip"><input type="radio" name="size" id="z-custom" value="Custom fit"><label for="z-custom">Custom fit</label></span>
+          </div>
+          <p class="error" id="size-error" role="alert"></p>
+        </fieldset>
+
+        <div class="step-nav">
+          <button class="back" type="button" data-back>Back</button>
+          <button class="btn" type="button" data-next>Continue <span class="arrow" aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step" data-step="3" aria-labelledby="s3-title" hidden>
+        <p class="step-count">Step 3 of 4</p>
+        <h1 id="s3-title" tabindex="-1">When suits <em>you?</em></h1>
+        <p class="intro">Choose what generally works. Shelena will confirm an exact time with you personally.</p>
+
+        <fieldset class="q">
+          <legend>Meet</legend>
+          <div class="chips">
+            <span class="chip"><input type="radio" name="format" id="f-studio" value="In the studio" checked><label for="f-studio">In the studio</label></span>
+            <span class="chip"><input type="radio" name="format" id="f-video" value="Video call"><label for="f-video">Video call</label></span>
+            <span class="chip"><input type="radio" name="format" id="f-phone" value="Phone call"><label for="f-phone">Phone call</label></span>
+          </div>
+        </fieldset>
+        <p class="consult-note" data-for="bespoke"><span><span data-fill="consultMinutes">30</span>-minute consultation · <span data-fill="consultFee">$75</span></span></p>
+
+        <fieldset class="q">
+          <legend>Best days <span class="optional">(pick any)</span></legend>
+          <div class="chips" id="day-chips"><!-- Mon–Sat --></div>
+        </fieldset>
+        <fieldset class="q">
+          <legend>Best times <span class="optional">(pick any)</span></legend>
+          <div class="chips">
+            <span class="chip"><input type="checkbox" name="times" id="t-am" value="Morning (10–12)"><label for="t-am">Morning <small>10–12</small></label></span>
+            <span class="chip"><input type="checkbox" name="times" id="t-mid" value="Midday (12–3)"><label for="t-mid">Midday <small>12–3</small></label></span>
+            <span class="chip"><input type="checkbox" name="times" id="t-pm" value="Afternoon (3–6)"><label for="t-pm">Afternoon <small>3–6</small></label></span>
+          </div>
+        </fieldset>
+
+        <div class="step-nav">
+          <button class="back" type="button" data-back>Back</button>
+          <button class="btn" type="button" data-next>Continue <span class="arrow" aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <!-- STEP 4 -->
+      <section class="step" data-step="4" aria-labelledby="s4-title" hidden>
+        <p class="step-count">Step 4 of 4</p>
+        <h1 id="s4-title" tabindex="-1">Where can we <em>reach you?</em></h1>
+        <p class="intro">Shelena reaches out personally to confirm. No spam, ever.</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input id="first-name" name="first_name" type="text" autocomplete="given-name" required aria-describedby="first-name-error">
+            <p class="error" id="first-name-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="last-name">Last name <span class="optional">(optional)</span></label>
+            <input id="last-name" name="last_name" type="text" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="phone">Mobile number</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="phone-error">
+            <p class="error" id="phone-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="email">Email <span class="optional">(optional)</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-error">
+            <p class="error" id="email-error" role="alert"></p>
+          </div>
+        </div>
+
+        <fieldset class="q">
+          <legend>Best way to reach you</legend>
+          <div class="chips">
+            <span class="chip"><input type="radio" name="contact_pref" id="c-text" value="Text" checked><label for="c-text">Text</label></span>
+            <span class="chip"><input type="radio" name="contact_pref" id="c-call" value="Call"><label for="c-call">Call</label></span>
+            <span class="chip"><input type="radio" name="contact_pref" id="c-email" value="Email"><label for="c-email">Email</label></span>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="notes">Your vision <span class="optional">(optional)</span></label>
+          <textarea id="notes" name="notes" placeholder="Colours, silhouettes, a dress you saw somewhere, anything at all."></textarea>
+        </div>
+        <div class="field">
+          <label for="inspo">Pinterest or Instagram link <span class="optional">(optional)</span></label>
+          <input id="inspo" name="inspiration" type="url" inputmode="url" placeholder="https://">
+        </div>
+        <div class="field">
+          <label for="source">How did you find us? <span class="optional">(optional)</span></label>
+          <select id="source" name="source">
+            <option value="">Choose one</option>
+            <option>Instagram</option>
+            <option>Friend or family</option>
+            <option>Google</option>
+            <option>Facebook</option>
+            <option>Pinterest</option>
+            <option>Saw her work at an event</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <p class="q-label" style="margin-top:12px">Your request</p>
+        <dl class="review" id="review"></dl>
+
+        <div class="step-nav">
+          <button class="back" type="button" data-back>Back</button>
+          <button class="btn" type="submit" id="submit-btn">Send my request <span class="arrow" aria-hidden="true">→</span></button>
+        </div>
+        <div class="send-error" id="send-error" role="alert" hidden></div>
+        <p class="fineprint">Sending a request doesn't commit you to anything. Your details go only to Shelena.</p>
+      </section>
+
+      <!-- DONE -->
+      <section class="step done" data-step="done" aria-labelledby="done-title" hidden>
+        <p class="eyebrow">Request received</p>
+        <h1 id="done-title" tabindex="-1">Thank you, <em id="done-name">love</em>.</h1>
+        <p class="lede">Your request is with Shelena. Here's what happens next:</p>
+        <ol class="next-steps">
+          <li id="done-contact">Shelena reaches out by text to confirm a time that works.</li>
+          <li>You meet for your consultation and share your vision.</li>
+          <li>You receive a sketch and an exact quote.</li>
+        </ol>
+        <div class="actions">
+          <a class="btn" id="done-acuity" href="#" hidden>Pick a time now <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" data-href="instagram" href="https://www.instagram.com/shebyshelena/">See her latest work</a>
+          <a class="btn btn--ghost" href="./">Back to the site</a>
+        </div>
+      </section>
+    </form>
+
+    <aside class="summary" id="summary" aria-label="Your request" data-empty="true">
+      <div class="summary-card">
+        <div class="media"><img id="sum-img" src="assets/img/bride-doorway-800.webp" alt="" width="720" height="960"></div>
+        <div class="inner">
+          <h2 id="sum-title">Your consultation</h2>
+          <p class="price" id="sum-price"><span data-fill="consultMinutes">30</span> minutes with the designer</p>
+          <dl id="sum-list"></dl>
+          <p class="q-label summary-h">What happens next</p>
+          <ol class="next-steps">
+            <li>Send your request — about 2 minutes</li>
+            <li>Shelena confirms a time with you personally</li>
+            <li>Meet, share your vision, get a quote</li>
+          </ol>
+          <p class="summary-help">Questions first? Text <a data-href="sms" href="sms:+18323739260" data-fill="phone">(832) 373-9260</a></p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/book.js"></script>
+</body>
+</html>
