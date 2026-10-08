@@ -721,10 +721,18 @@ dialog.signup::backdrop { background: rgba(23, 20, 18, .55); backdrop-filter: bl
   .signup-body { padding: 56px 44px 40px; align-self: center; }
 }
 
-/* ---------- star cursor (mouse/trackpad only; phones and tablets unaffected) ---------- */
+/* ---------- heart cursor, cut from her SMI signature (mouse/trackpad only; touch devices unaffected) ---------- */
 @media (hover: hover) and (pointer: fine) {
-  html, body { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%201.6l3.1%206.6%207.2.9-5.3%205%201.4%207.1L12%2017.7l-6.4%203.5L7%2014.1%201.7%209.1l7.2-.9z%22%20fill%3D%22%23171412%22%20stroke%3D%22%23f7f3ed%22%20stroke-width%3D%221.3%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E") 12 12, auto; }
-  :is(a, button, summary, label, select, [role="button"], .btn, .menu-toggle, .signup-close, .choice label, .chip label, input[type="checkbox"], input[type="radio"]) { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%201.6l3.1%206.6%207.2.9-5.3%205%201.4%207.1L12%2017.7l-6.4%203.5L7%2014.1%201.7%209.1l7.2-.9z%22%20fill%3D%22%23171412%22%20stroke%3D%22%23f7f3ed%22%20stroke-width%3D%221.3%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E") 16 16, pointer !important; }
+  html, body {
+    cursor: url("../img/cursor-heart-24.png") 12 12, auto;
+    cursor: -webkit-image-set(url("../img/cursor-heart-24.png") 1x, url("../img/cursor-heart-24@2x.png") 2x) 12 12, auto;
+    cursor: image-set(url("../img/cursor-heart-24.png") 1x, url("../img/cursor-heart-24@2x.png") 2x) 12 12, auto;
+  }
+  :is(a, button, summary, label, select, [role="button"], .btn, .menu-toggle, .signup-close, .choice label, .chip label, input[type="checkbox"], input[type="radio"]) {
+    cursor: url("../img/cursor-heart-32.png") 16 16, pointer !important;
+    cursor: -webkit-image-set(url("../img/cursor-heart-32.png") 1x, url("../img/cursor-heart-32@2x.png") 2x) 16 16, pointer !important;
+    cursor: image-set(url("../img/cursor-heart-32.png") 1x, url("../img/cursor-heart-32@2x.png") 2x) 16 16, pointer !important;
+  }
   input:not([type="checkbox"]):not([type="radio"]), textarea { cursor: text !important; }
   button:disabled { cursor: not-allowed !important; }
 }
