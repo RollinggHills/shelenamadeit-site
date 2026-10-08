@@ -37,6 +37,19 @@
     `<span class="chip"><input type="checkbox" name="days" id="d-${d}" value="${d}"><label for="d-${d}">${d}</label></span>`
   ).join("");
 
+  // ready-to-wear: colour + size (sets take separate top/bottom sizes), built from the product
+  if (product) {
+    const chips = (name, label, opts, type = "radio") => `
+      <fieldset class="q" data-for="shop"><legend>${label}</legend><div class="chips">${opts.map((o, i) =>
+        `<span class="chip"><input type="${type}" name="${name}" id="${name}-${i}" value="${o}"><label for="${name}-${i}">${o}</label></span>`
+      ).join("")}</div><p class="error" id="${name}-error" role="alert"></p></fieldset>`;
+    const sizes = [...S.sizes, "Custom"];
+    $("#shop-options").innerHTML = chips("color", "Colour", product.colors) +
+      (product.sizing === "set" ? chips("top_size", "Top size", sizes) + chips("bottom_size", "Bottom size", sizes)
+        : chips("size", "Size", sizes)) +
+      `<p class="hint" data-for="shop">Every piece is made to order. Choose “Custom” and Shelena will take your measurements.</p>`;
+  }
+
   const service = () => choices.find((s) => s.id === (form.service.value || ""));
   const kind = () => (service() ? service().kind : null);
 
@@ -69,10 +82,10 @@
       bespoke: "A few quick details so Shelena can prepare for your consultation.",
       alteration: "So Shelena can plan your fitting around your event.",
       class: "So your lesson starts at the right level.",
-      shop: "Pick your size and Shelena will confirm availability and payment with you.",
+      shop: "Pick your colour and size. Shelena will confirm and arrange payment with you.",
     };
     $("#s2-intro").textContent = intro[k] || intro.bespoke;
-    $("#s2-title").innerHTML = k === "shop" ? "Your <em>size</em>" : k === "class" ? "About <em>you</em>"
+    $("#s2-title").innerHTML = k === "shop" ? "Colour &amp; <em>size</em>" : k === "class" ? "About <em>you</em>"
       : "Tell us about the <em>occasion</em>";
     renderBudgets();
   }
@@ -132,9 +145,11 @@
         return ok;
       }
       if (k === "shop") {
-        const ok = setErr("size-error", form.size.value ? "" : "Choose a size.");
-        if (!ok) $("#size-chips input").focus();
-        return ok;
+        const need = ["color", ...(product.sizing === "set" ? ["top_size", "bottom_size"] : ["size"])];
+        const missing = need.filter((n) => !form[n].value);
+        need.forEach((n) => setErr(n + "-error", missing.includes(n) ? "Choose one." : ""));
+        if (missing.length) $(`input[name="${missing[0]}"]`).focus();
+        return !missing.length;
       }
       return true;
     }
@@ -214,7 +229,11 @@
     const rows = [];
     if (!s) return rows;
     rows.push(["Service", k === "shop" ? "Ready-to-wear: " + s.name : s.name]);
-    if (k === "shop") rows.push(["Size", val("size")]);
+    if (k === "shop") {
+      rows.push(["Colour", val("color")]);
+      if (product.sizing === "set") { rows.push(["Top size", val("top_size")]); rows.push(["Bottom size", val("bottom_size")]); }
+      else rows.push(["Size", val("size")]);
+    }
     if (k === "bespoke" || k === "alteration") {
       rows.push(["Event date", form.no_date.checked ? "No date yet" : form.event_date.value ? fmtDate(form.event_date.value) : ""]);
     }
@@ -348,7 +367,7 @@
   });
   form.addEventListener("change", (e) => {
     if (e.target.name === "service") { setErr("service-error", ""); applyKind(); }
-    if (e.target.name === "size") setErr("size-error", "");
+    if (["color", "size", "top_size", "bottom_size"].includes(e.target.name)) setErr(e.target.name + "-error", "");
     if (e.target.name === "event_date" || e.target.name === "no_date") { setErr("date-error", "", form.event_date); updateTimeline(); }
     renderSummary();
     saveDraft();

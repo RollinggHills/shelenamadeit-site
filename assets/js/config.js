@@ -73,13 +73,29 @@ window.SMI = {
     },
   ],
 
-  // Ready-to-wear. Prices from the live shop, Oct 2026. Checkout provider not chosen yet,
-  // so "Order" opens a request in the booking flow.
+  // Ready-to-wear, from her WooCommerce admin (Oct 2026). All made to order / pre-order; one price per product.
+  // sizing "set" = separate top and bottom sizes. Old URLs: /product/<slug>/ (keep for 301 redirects).
+  sizes: ["XS", "S", "M", "L", "XL", "2X", "3X"],
   products: [
-    { id: "selene", name: "Selene One Piece", price: 99.99, img: "shop-selene", alt: "Model in an orange sequin one-piece swimsuit beside a pool", cat: "Resort" },
-    { id: "chantel", name: "Chantel 3-Piece Bikini Set", price: 99.99, img: "shop-chantel", alt: "Model in a lime fishnet three-piece bikini set on rocks by a waterfall", cat: "Resort" },
-    { id: "gizzele", name: "Gizzele Balconette Swim Bra Set", price: 69.99, img: "shop-gizzele", alt: "Model in a blue balconette two-piece standing in a pool", cat: "Resort" },
-    { id: "celeste", name: "Celeste Lace Sequin Bikini Set", price: 59.99, img: "shop-celeste", alt: "Model in a white lace bikini among tropical palms", cat: "Resort" },
-    { id: "velvet-teddy", name: "Velvet Teddy", price: 89.99, img: "shop-velvet-teddy", alt: "Model in a red velvet teddy against a crimson backdrop", cat: "Intimates" },
+    { id: "selene", slug: "custom-one-piece-sequin-swimsuit", name: "Selene One Piece", price: 99.99, cat: "Resort",
+      img: "shop-selene", alt: "Model in an orange sequin one-piece swimsuit beside a pool", sizing: "single",
+      colors: ["Black", "Blue", "Green", "Orange", "Pink", "Purple", "Red"],
+      blurb: "Shimmering sequins, adjustable straps and a padded bustier for support." },
+    { id: "chantel", slug: "fishnet-3-piece-swim-set", name: "Chantel 3-Piece Bikini Set", price: 99.99, cat: "Resort",
+      img: "shop-chantel", alt: "Model in a lime fishnet three-piece bikini set on rocks by a waterfall", sizing: "set",
+      colors: ["Black", "Blue", "Green", "Orange", "Pink", "Purple", "Red", "White"],
+      blurb: "Textured fishnet over nude spandex, with a matching cropped shirt." },
+    { id: "gizzele", slug: "balconette-swim-bra-french-bikini", name: "Gizzele Balconette Swim Bra Set", price: 69.99, cat: "Resort",
+      img: "shop-gizzele", alt: "Model in a blue balconette two-piece standing in a pool", sizing: "set",
+      colors: ["Black", "Blue", "Green", "Orange", "Pink", "Purple", "Red", "White", "Yellow"],
+      blurb: "Bustier-style balconette top with matching French-cut bottoms." },
+    { id: "celeste", slug: "lace-sequin-bikini-set", name: "Celeste Lace Sequin Bikini Set", price: 59.99, cat: "Resort",
+      img: "shop-celeste", alt: "Model in a white lace bikini among tropical palms", sizing: "set",
+      colors: ["Black", "White"],
+      blurb: "Delicate lace and shimmering sequins, lined for comfort." },
+    { id: "velvet-teddy", slug: "velvet-teddy-bodysuit", name: "Velvet Teddy", price: 89.99, cat: "Intimates",
+      img: "shop-velvet-teddy", alt: "Model in a red velvet teddy against a crimson backdrop", sizing: "single",
+      colors: ["Black", "Blue", "Green", "Pink", "Purple", "Red", "White"],
+      blurb: "Plush velvet with built-in cups and adjustable straps." },
   ],
 };

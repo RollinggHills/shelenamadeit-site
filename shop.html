@@ -55,7 +55,7 @@
       <div class="wrap">
         <p class="eyebrow">Ready-to-wear</p>
         <h1>The <em>collection</em></h1>
-        <p class="lede">Resort wear and intimates from the studio. Choose your piece and Shelena will confirm your size and arrange payment with you directly.</p>
+        <p class="lede">Resort wear and intimates from the studio. Every piece is made to order in your colour and size, from XS to 3X or made to your measurements. Choose your piece and Shelena will confirm and arrange payment with you directly.</p>
       </div>
     </section>
     <section class="section" style="padding-top:0" aria-label="Products">
@@ -143,7 +143,8 @@
           <div class="media"><img src="assets/img/${p.img}-800.webp" width="800" height="1200" loading="lazy" alt="${p.alt}"></div>
           <p class="eyebrow" style="margin-bottom:8px">${p.cat}</p>
           <h3>${p.name}</h3>
-          <p class="price">$${p.price.toFixed(2)}</p>
+          <p class="price">$${p.price.toFixed(2)} · ${p.colors.length} colours</p>
+          <p class="muted" style="font-size:.9rem;margin:-6px 0 14px">${p.blurb}</p>
           <a class="btn btn--ghost" href="book.html?item=${p.id}">Order this piece</a>
         </article>`).join("");
     })();

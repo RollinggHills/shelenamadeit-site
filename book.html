@@ -111,20 +111,8 @@
           <input id="class-goal" name="class_goal" type="text" placeholder="e.g. my own prom dress, simple alterations">
         </div>
 
-        <!-- size: ready-to-wear -->
-        <fieldset class="q" data-for="shop">
-          <legend>Your size</legend>
-          <div class="chips" id="size-chips">
-            <span class="chip"><input type="radio" name="size" id="z-xs" value="XS"><label for="z-xs">XS</label></span>
-            <span class="chip"><input type="radio" name="size" id="z-s" value="S"><label for="z-s">S</label></span>
-            <span class="chip"><input type="radio" name="size" id="z-m" value="M"><label for="z-m">M</label></span>
-            <span class="chip"><input type="radio" name="size" id="z-l" value="L"><label for="z-l">L</label></span>
-            <span class="chip"><input type="radio" name="size" id="z-xl" value="XL"><label for="z-xl">XL</label></span>
-            <span class="chip"><input type="radio" name="size" id="z-2x" value="2XL"><label for="z-2x">2XL</label></span>
-            <span class="chip"><input type="radio" name="size" id="z-custom" value="Custom fit"><label for="z-custom">Custom fit</label></span>
-          </div>
-          <p class="error" id="size-error" role="alert"></p>
-        </fieldset>
+        <!-- colour + size: ready-to-wear (built by book.js from the product) -->
+        <div id="shop-options"></div>
 
         <div class="step-nav">
           <button class="back" type="button" data-back>Back</button>
