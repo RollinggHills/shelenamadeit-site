@@ -11,7 +11,7 @@
     year: String(new Date().getFullYear()), years: String(new Date().getFullYear() - S.established),
     established: String(S.established), consultMinutes: String(S.consult.minutes),
     consultFee: money(S.consult.fee), rushFee: money(S.timeline.rushFee),
-    standardMonths: S.timeline.standardMonths, rushMonths: S.timeline.rushMonths, deposit: S.deposit,
+    standardMonths: S.timeline.standardMonths, illustrationTime: S.illustrationTime, rushMonths: S.timeline.rushMonths, deposit: S.deposit,
   };
   document.querySelectorAll("[data-fill]").forEach((el) => {
     const v = fills[el.dataset.fill];

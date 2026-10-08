@@ -67,9 +67,9 @@
         <p class="intro" id="s2-intro">A few quick details so Shelena can prepare for your consultation.</p>
 
         <!-- event date: bespoke + alterations -->
-        <div class="q" data-for="bespoke alteration">
+        <div class="q" data-for="bespoke alteration illustration">
           <div class="field">
-            <label for="event-date">Event date</label>
+            <label for="event-date" id="date-label">Event date</label>
             <input id="event-date" name="event_date" type="date" aria-describedby="date-error timeline-msg">
           </div>
           <label class="check"><input type="checkbox" id="no-date" name="no_date"> No date yet / just exploring</label>
@@ -93,6 +93,30 @@
           <legend>Budget in mind <span class="optional">(optional)</span></legend>
           <p class="hint">Helps Shelena suggest fabrics and details that fit. Nothing is locked in.</p>
           <div class="chips" id="budget-chips"><!-- filled per service --></div>
+        </fieldset>
+
+        <!-- illustration add-on: bespoke -->
+        <div class="q addon" data-for="bespoke">
+          <label class="check"><input type="checkbox" name="addon_illustration" value="Yes"> Add a hand-drawn illustration of my piece <span class="optional">(a keepsake of your design)</span></label>
+        </div>
+
+        <!-- illustration only -->
+        <fieldset class="q" data-for="illustration">
+          <legend>What would you like illustrated?</legend>
+          <div class="chips">
+            <span class="chip"><input type="radio" name="illus_subject" id="i-dress" value="My wedding dress" checked><label for="i-dress">My wedding dress</label></span>
+            <span class="chip"><input type="radio" name="illus_subject" id="i-idea" value="A design idea"><label for="i-idea">A design idea</label></span>
+            <span class="chip"><input type="radio" name="illus_subject" id="i-gift" value="A gift for someone"><label for="i-gift">A gift for someone</label></span>
+            <span class="chip"><input type="radio" name="illus_subject" id="i-other" value="Something else"><label for="i-other">Something else</label></span>
+          </div>
+        </fieldset>
+        <fieldset class="q" data-for="illustration">
+          <legend>Is Shelena also making the piece?</legend>
+          <div class="chips">
+            <span class="chip"><input type="radio" name="illus_type" id="t-only" value="Illustration only" checked><label for="t-only">No, illustration only</label></span>
+            <span class="chip"><input type="radio" name="illus_type" id="t-add" value="Add-on to a custom piece"><label for="t-add">Yes, add it to my custom piece</label></span>
+          </div>
+          <p class="hint" style="margin-top:12px">Share photos or inspiration on the last step.</p>
         </fieldset>
 
         <!-- garment: alterations -->

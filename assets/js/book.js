@@ -68,7 +68,8 @@
   }
 
   // ---------- steps ----------
-  const sequence = () => (kind() === "shop" ? ["1", "2", "4"] : ["1", "2", "3", "4"]);
+  // ready-to-wear orders and illustrations don't need a consultation slot
+  const sequence = () => (["shop", "illustration"].includes(kind()) ? ["1", "2", "4"] : ["1", "2", "3", "4"]);
   let current = "1";
 
   function applyKind() {
@@ -83,9 +84,12 @@
       alteration: "So Shelena can plan your fitting around your event.",
       class: "So your lesson starts at the right level.",
       shop: "Pick your colour and size. Shelena will confirm and arrange payment with you.",
+      illustration: `A hand-drawn fashion illustration, usually ready in ${S.illustrationTime}.`,
     };
     $("#s2-intro").textContent = intro[k] || intro.bespoke;
+    $("#date-label").textContent = k === "illustration" ? "Needed by (optional)" : "Event date";
     $("#s2-title").innerHTML = k === "shop" ? "Colour &amp; <em>size</em>" : k === "class" ? "About <em>you</em>"
+      : k === "illustration" ? "About your <em>illustration</em>"
       : "Tell us about the <em>occasion</em>";
     renderBudgets();
   }
@@ -135,11 +139,11 @@
     }
     if (step === "2") {
       const k = kind();
-      if (k === "bespoke" || k === "alteration") {
-        const date = form.event_date, none = form.no_date.checked;
+      if (k === "bespoke" || k === "alteration" || k === "illustration") {
+        const date = form.event_date, none = form.no_date.checked || k === "illustration";
         let msg = "";
         if (!none && !date.value) msg = "Add your event date, or tick “No date yet”.";
-        else if (!none && daysUntil(date.value) < 0) msg = "That date has passed. Choose a future date.";
+        else if (date.value && daysUntil(date.value) < 0) msg = "That date has passed. Choose a future date.";
         const ok = setErr("date-error", msg, date);
         if (!ok) date.focus();
         return ok;
@@ -187,7 +191,12 @@
     const t = S.timeline;
     let cls = "", html = "";
     if (days < 0) { box.hidden = true; return; }
-    if (kind() === "alteration") {
+    if (kind() === "illustration") {
+      html = days < 7
+        ? `<strong>That's quick.</strong> Illustrations usually take ${S.illustrationTime}. Shelena will tell you right away if she can make it.`
+        : "<strong>Plenty of time.</strong> Your illustration will be ready well before then.";
+      cls = days < 7 ? "is-warn" : "is-good";
+    } else if (kind() === "alteration") {
       html = days < 14
         ? "<strong>That's soon.</strong> We'll confirm right away whether a fitting can be fit in before your event."
         : "<strong>Good timing.</strong> We'll schedule your fittings around your event date.";
@@ -234,13 +243,21 @@
       if (product.sizing === "set") { rows.push(["Top size", val("top_size")]); rows.push(["Bottom size", val("bottom_size")]); }
       else rows.push(["Size", val("size")]);
     }
+    if (k === "illustration") {
+      rows.push(["Illustrate", val("illus_subject")]);
+      rows.push(["Type", val("illus_type")]);
+      if (form.event_date.value) rows.push(["Needed by", fmtDate(form.event_date.value)]);
+    }
     if (k === "bespoke" || k === "alteration") {
       rows.push(["Event date", form.no_date.checked ? "No date yet" : form.event_date.value ? fmtDate(form.event_date.value) : ""]);
     }
-    if (k === "bespoke") { rows.push(["For", val("for_whom")]); rows.push(["Budget", val("budget")]); }
+    if (k === "bespoke") {
+      rows.push(["For", val("for_whom")]); rows.push(["Budget", val("budget")]);
+      if (form.addon_illustration.checked) rows.push(["Add-on", "Hand-drawn illustration"]);
+    }
     if (k === "alteration") rows.push(["Garment", val("garment")]);
     if (k === "class") { rows.push(["Experience", val("level")]); rows.push(["Wants to make", val("class_goal")]); }
-    if (k !== "shop") {
+    if (k !== "shop" && k !== "illustration") {
       rows.push(["Meet", val("format")]);
       rows.push(["Days", checked("days").join(", ")]);
       rows.push(["Times", checked("times").join(", ")]);
@@ -259,6 +276,7 @@
     if (!img.src.endsWith(src)) img.src = src;
     $("#sum-title").textContent = s.name;
     $("#sum-price").textContent = kind() === "shop" ? s.priceNote
+      : kind() === "illustration" ? `${s.priceNote} · ready in ${S.illustrationTime}`
       : `${priceText(s)} · ${S.consult.minutes}-min consultation`;
     $("#sum-list").innerHTML = details().slice(1)
       .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
@@ -301,7 +319,7 @@
     const s = service();
     const name = [val("first_name"), val("last_name")].filter(Boolean).join(" ");
     const payload = {
-      _subject: `New ${kind() === "shop" ? "order request" : "consultation request"}: ${s.name} — ${name}`,
+      _subject: `New ${{ shop: "order request", illustration: "illustration request" }[kind()] || "consultation request"}: ${s.name} — ${name}`,
       _template: "table",
       _captcha: "false",
       Name: name,
@@ -316,7 +334,9 @@
     if (val("email")) {
       payload._replyto = val("email");
       // FormSubmit emails this to the customer so they know it arrived
-      payload._autoresponse = kind() === "shop"
+      payload._autoresponse = kind() === "illustration"
+        ? `Thank you for requesting a fashion illustration from Shelena Made It! Shelena will be in touch shortly to talk through your piece. Feel free to reply with any photos. Questions? Text ${S.phoneDisplay}.`
+        : kind() === "shop"
         ? `Thank you for your order request for the ${s.name}! Shelena will be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
         : `Thank you for requesting a consultation with Shelena Made It! Shelena will reach out personally to confirm a time. Bring any photos or inspiration you love. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
     }
@@ -353,10 +373,12 @@
     clearDraft();
     $("#done-name").textContent = val("first_name") || "love";
     const how = { Text: "reaches out by text", Call: "calls you", Email: "emails you" }[val("contact_pref")] || "reaches out";
-    $("#done-contact").textContent = kind() === "shop"
+    $("#done-contact").textContent = kind() === "illustration"
+      ? `Shelena ${how} to talk through your illustration and timing.`
+      : kind() === "shop"
       ? `Shelena ${how} to confirm your size and arrange payment.`
       : `Shelena ${how} to confirm a time that works.`;
-    if (S.acuityUrl && kind() !== "shop") { const a = $("#done-acuity"); a.href = S.acuityUrl; a.hidden = false; }
+    if (S.acuityUrl && !["shop", "illustration"].includes(kind())) { const a = $("#done-acuity"); a.href = S.acuityUrl; a.hidden = false; }
     $("#summary").hidden = true;
     show("done");
   }

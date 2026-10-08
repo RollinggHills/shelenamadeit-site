@@ -89,7 +89,15 @@ window.SMI = {
       img: "studio-sewing", alt: "Shelena in her studio beside a dress form",
       kind: "class",
     },
+    {
+      // CONFIRM price with Shelena; swap the image for photos of her real illustrations when she sends them
+      id: "illustration", name: "Fashion Illustrations", from: null, priceNote: "Ask for rates",
+      blurb: "Your gown, drawn by hand. On its own or added to a custom piece.",
+      img: "gown-hanging", alt: "Ivory gown with gold leaf appliqué hanging on a brick wall",
+      kind: "illustration",
+    },
   ],
+  illustrationTime: "5 days to 2 weeks",
 
   // Ready-to-wear, from her WooCommerce admin (Oct 2026). All made to order / pre-order; one price per product.
   // sizing "set" = separate top and bottom sizes. Old URLs: /product/<slug>/ (keep for 301 redirects).
