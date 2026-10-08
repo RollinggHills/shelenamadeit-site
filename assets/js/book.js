@@ -306,14 +306,20 @@
       _captcha: "false",
       Name: name,
       Phone: val("phone"),
-      Email: val("email") || "(not given)",
+      email: val("email") || "(not given)",
       "Contact by": val("contact_pref"),
     };
     details().forEach(([k, v]) => (payload[k] = v));
     if (val("notes")) payload.Vision = val("notes");
     if (val("inspiration")) payload.Inspiration = val("inspiration");
     if (val("source")) payload["Found us via"] = val("source");
-    if (val("email")) payload._replyto = val("email");
+    if (val("email")) {
+      payload._replyto = val("email");
+      // FormSubmit emails this to the customer so they know it arrived
+      payload._autoresponse = kind() === "shop"
+        ? `Thank you for your order request for the ${s.name}! Shelena will be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
+        : `Thank you for requesting a consultation with Shelena Made It! Shelena will reach out personally to confirm a time. Bring any photos or inspiration you love. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
+    }
 
     // bots fill the hidden field; pretend it worked and send nothing
     if (form._honey.value) { done(); return; }

@@ -6,7 +6,7 @@ window.SMI = {
   name: "Shelena Made It",
   designer: "Shelena Shulterbrandt",
   established: 2018,
-  city: "Austin, Texas",                 // CONFIRM: business plan says Austin; old site FAQ says ships from Houston
+  city: "Austin, Texas",                 // her Instagram bio says ATX; business plan says Austin
   phone: "8323739260",
   phoneDisplay: "(832) 373-9260",
   email: "shebyshelena@gmail.com",
@@ -15,6 +15,14 @@ window.SMI = {
   instagramHandle: "@shebyshelena",
   facebook: "https://www.facebook.com/shebyshelena/",
   pinterest: "https://www.pinterest.com/shebyshelena/",
+
+  // Seasonal banner on the homepage. Set to null to hide it.
+  // From her Instagram bio (2026): "Limited Prom 2027 Commissions · By Appointment Only · ATX"
+  announcement: {
+    text: "Now booking Prom 2027. Limited commissions.",
+    link: "book.html?service=occasion",
+    cta: "Reserve yours",
+  },
 
   consult: {
     minutes: 30,
