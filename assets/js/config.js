@@ -36,9 +36,19 @@ window.SMI = {
   formEndpoint: "https://formsubmit.co/ajax/shebyshelena@gmail.com",
   // Set to her Acuity link once online scheduling is switched back on (it is OFF as of Oct 2026).
   acuityUrl: null,
-  // Mailchimp embedded-form action URL (Audience → Signup forms → Embedded). Until set,
-  // newsletter signups are emailed through formEndpoint instead.
-  mailchimpAction: null,
+  // Her existing Mailchimp audience (found in her old site's Mailchimp popup script).
+  // Signups from the popup and footer go straight into this list.
+  mailchimp: { url: "https://mc.us15.list-manage.com/subscribe/post-json", u: "e9a2e08a67ecb3932eb57fd7a", id: "6a779a0637" },
+
+  // Email-signup popup. Waits until the visitor is engaged; never on the booking page.
+  // Set to null to turn it off. The discount code itself is sent by her Mailchimp welcome email.
+  popup: {
+    offer: "10% off your first order",
+    text: "Be the first to hear about new pieces, open booking dates and private sales.",
+    afterSeconds: 25,
+    afterScrollPercent: 50,
+    snoozeDays: 14,
+  },
 
   // CONFIRM all prices. Business plan (Aug 2026) vs old site FAQ:
   //   bridal 1800 (site: 1500) · evening 1200 (site: prom gown 600) · menswear 600 (site: prom suit 400)

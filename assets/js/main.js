@@ -84,27 +84,105 @@
     reveals.forEach((el) => el.classList.add("is-in"));
   }
 
-  // ---- newsletter ----
-  document.querySelectorAll("form[data-newsletter]").forEach((form) => {
-    const msg = form.parentElement.querySelector(".newsletter-msg");
+  // ---- newsletter: one subscribe() for the footer form and the popup ----
+  // Mailchimp's JSONP endpoint works from a static site with no backend.
+  function subscribe(email) {
+    if (!S.mailchimp) {
+      return fetch(S.formEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ _subject: "Newsletter signup", email, _template: "table" }),
+      }).then((r) => { if (!r.ok) throw new Error(r.status); return "ok"; });
+    }
+    return new Promise((resolve, reject) => {
+      const cb = "smiMc" + Date.now();
+      const mc = S.mailchimp;
+      const s = document.createElement("script");
+      const cleanup = () => { delete window[cb]; s.remove(); };
+      const timer = setTimeout(() => { cleanup(); reject(new Error("timeout")); }, 10000);
+      window[cb] = (res) => {
+        clearTimeout(timer); cleanup();
+        if (res.result === "success" || /already subscribed/i.test(res.msg || "")) resolve("ok");
+        else reject(new Error((res.msg || "error").replace(/<[^>]+>/g, "")));
+      };
+      s.src = `${mc.url}?u=${mc.u}&id=${mc.id}&EMAIL=${encodeURIComponent(email)}&b_${mc.u}_${mc.id}=&c=${cb}`;
+      s.onerror = () => { clearTimeout(timer); cleanup(); reject(new Error("network")); };
+      document.head.appendChild(s);
+    });
+  }
+  const validEmail = (v) => /^\S+@\S+\.\S+$/.test(v);
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch { /* storage unavailable */ } },
+  };
+  const JOINED = "smi-joined", SNOOZE = "smi-popup-snooze";
+
+  function wireSignup(form, msg, onDone) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = form.email.value.trim();
-      if (!/^\S+@\S+\.\S+$/.test(email)) { msg.textContent = "Please enter a valid email address."; form.email.focus(); return; }
-      if (S.mailchimpAction) { form.action = S.mailchimpAction; form.method = "post"; form.submit(); return; }
+      if (!validEmail(email)) { msg.textContent = "Please enter a valid email address."; form.email.focus(); return; }
+      const btn = form.querySelector("button[type=submit]");
+      btn.disabled = true;
       msg.textContent = "Joining…";
       try {
-        const r = await fetch(S.formEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ _subject: "Newsletter signup", email, _template: "table" }),
-        });
-        if (!r.ok) throw new Error(r.status);
-        msg.textContent = "You're on the list. Welcome.";
+        await subscribe(email);
+        store.set(JOINED, "1");
+        msg.textContent = "You're on the list. Check your inbox for your welcome code.";
         form.reset();
+        if (onDone) onDone();
       } catch {
         msg.textContent = "That didn't go through. Please try again in a moment.";
+      } finally {
+        btn.disabled = false;
       }
     });
-  });
+  }
+  document.querySelectorAll("form[data-newsletter]").forEach((form) =>
+    wireSignup(form, form.parentElement.querySelector(".newsletter-msg")));
+
+  // ---- signup popup ----
+  const P = S.popup;
+  const snoozed = Number(store.get(SNOOZE) || 0) > Date.now();
+  const onBooking = document.body.classList.contains("book-page");
+  if (P && !onBooking && !store.get(JOINED) && !snoozed && typeof HTMLDialogElement === "function") {
+    const dlg = document.createElement("dialog");
+    dlg.className = "signup";
+    dlg.setAttribute("aria-labelledby", "signup-title");
+    dlg.innerHTML = `
+      <div class="signup-media" aria-hidden="true"><img src="assets/img/evening-sequin-800.webp" alt="" width="750" height="952" loading="lazy"></div>
+      <div class="signup-body">
+        <button class="signup-close" type="button" aria-label="Close">×</button>
+        <p class="eyebrow">The list</p>
+        <h2 id="signup-title">${P.offer}</h2>
+        <p class="signup-text">${P.text}</p>
+        <form novalidate>
+          <label class="sr-only" for="signup-email">Email address</label>
+          <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="Your email" required>
+          <button class="btn btn--block" type="submit">Join the list</button>
+        </form>
+        <p class="signup-msg" role="status" aria-live="polite"></p>
+        <p class="signup-fine">No spam, ever. Unsubscribe any time.</p>
+      </div>`;
+    document.body.appendChild(dlg);
+    const snooze = () => store.set(SNOOZE, String(Date.now() + P.snoozeDays * 86400000));
+    const close = () => { if (dlg.open) dlg.close(); };
+    dlg.addEventListener("close", () => { if (!store.get(JOINED)) snooze(); });
+    dlg.querySelector(".signup-close").addEventListener("click", close);
+    dlg.addEventListener("click", (e) => { if (e.target === dlg) close(); }); // backdrop click
+    wireSignup(dlg.querySelector("form"), dlg.querySelector(".signup-msg"), () => setTimeout(close, 2600));
+
+    let shown = false;
+    const show = () => {
+      if (shown || document.querySelector(".mobile-menu:not([hidden])")) return;
+      shown = true;
+      dlg.showModal();
+    };
+    setTimeout(show, P.afterSeconds * 1000);
+    window.addEventListener("scroll", () => {
+      const h = document.documentElement;
+      if ((h.scrollTop + innerHeight) / h.scrollHeight * 100 >= P.afterScrollPercent && h.scrollTop > 400) show();
+    }, { passive: true });
+    document.addEventListener("mouseout", (e) => { if (!e.relatedTarget && e.clientY <= 0) show(); }); // leaving on desktop
+  }
 })();

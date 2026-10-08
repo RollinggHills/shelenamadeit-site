@@ -688,3 +688,35 @@ p { margin: 0 0 1em; }
 }
 .announce-cta { color: #d8bd8f; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; font-size: .72rem; white-space: nowrap; }
 .announce:hover .announce-cta { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- signup popup ---------- */
+dialog.signup {
+  width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 0; border: 0;
+  background: var(--ivory); color: var(--ink); box-shadow: 0 30px 80px -20px rgba(23, 20, 18, .55);
+  overflow: auto;
+}
+dialog.signup[open] { display: grid; grid-template-columns: 1fr; animation: signup-in .45s var(--ease); }
+dialog.signup::backdrop { background: rgba(23, 20, 18, .55); backdrop-filter: blur(3px); }
+@keyframes signup-in { from { opacity: 0; transform: translateY(14px); } }
+.signup-media { display: none; }
+.signup-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.signup-body { position: relative; padding: 44px 28px 28px; }
+.signup-body h2 { font-size: clamp(2rem, 6vw, 2.6rem); margin-bottom: 12px; }
+.signup-text { color: var(--muted); margin-bottom: 22px; }
+.signup-body input {
+  width: 100%; min-height: 52px; padding: 12px 14px; margin-bottom: 10px;
+  border: 1px solid rgba(23, 20, 18, .28); border-radius: var(--radius); background: #fffdfa; font-size: 16px;
+}
+.signup-body input:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(176, 141, 87, .28); }
+.signup-msg { min-height: 1.4em; margin: 10px 0 0; font-size: .9rem; }
+.signup-fine { font-size: .78rem; color: var(--muted); margin: 4px 0 0; }
+.signup-close {
+  position: absolute; top: 8px; right: 8px; width: 44px; height: 44px;
+  border: 0; background: none; cursor: pointer; font: 300 1.9rem/1 var(--sans); color: var(--ink-soft);
+}
+.signup-close:hover { color: var(--ink); }
+@media (min-width: 680px) {
+  dialog.signup[open] { grid-template-columns: .85fr 1fr; }
+  .signup-media { display: block; }
+  .signup-body { padding: 56px 44px 40px; align-self: center; }
+}
