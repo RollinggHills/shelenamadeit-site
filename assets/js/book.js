@@ -269,6 +269,7 @@
     if (k === "alteration") rows.push(["Garment", val("garment")]);
     if (k === "class") { rows.push(["Experience", val("level")]); rows.push(["Wants to make", val("class_goal")]); }
     if (k !== "shop" && k !== "illustration") {
+      rows.push(["Location", val("where")]);
       rows.push(["Meet", val("format")]);
       rows.push(["Days", checked("days").join(", ")]);
       rows.push(["Times", checked("times").join(", ")]);
@@ -402,12 +403,18 @@
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (current !== "4") { if (validate(current)) go(1); return; }
+    if (kind() === "bespoke" && !form.pledge.checked) { show("1"); validate("1"); return; }
     if (validate("4")) submit();
   });
   form.addEventListener("change", (e) => {
     if (e.target.name === "service") { setErr("service-error", ""); applyKind(); }
     if (e.target.name === "pledge") setErr("pledge-error", "");
     if (e.target.name === "vibe") setErr("vibe-error", checked("vibe").length > 3 ? "Choose up to three." : "");
+    if (e.target.name === "where") {
+      const remote = e.target.value !== "Austin area";
+      $("#remote-note").hidden = !remote;
+      if (remote && form.format.value === "In the studio") $("#f-video").checked = true;
+    }
     if (["color", "size", "top_size", "bottom_size"].includes(e.target.name)) setErr(e.target.name + "-error", "");
     if (e.target.name === "event_date" || e.target.name === "no_date") { setErr("date-error", "", form.event_date); updateTimeline(); }
     renderSummary();
@@ -430,5 +437,6 @@
   applyKind();
   updateTimeline();
   renderSummary();
-  show(wanted && service() ? "2" : "1", { focus: false });
+  // commissions always open on step 1 so the original promise is seen and agreed first
+  show(wanted && service() && kind() !== "bespoke" ? "2" : "1", { focus: false });
 })();
