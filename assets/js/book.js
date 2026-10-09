@@ -80,7 +80,7 @@
       $$("input, select, textarea", el).forEach((i) => (i.disabled = !on));
     });
     const intro = {
-      bespoke: "Tell Shelena how you want to feel. She'll design an original piece around it.",
+      bespoke: "Brief your designer. Tell Shelena about the moment and how you want to feel; the design is hers to create.",
       alteration: "So Shelena can plan your fitting around your event.",
       class: "So your lesson starts at the right level.",
       shop: "Pick your colour and size. Shelena will confirm and arrange payment with you.",
