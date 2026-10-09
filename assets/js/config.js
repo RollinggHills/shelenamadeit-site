@@ -41,7 +41,9 @@ window.SMI = {
   acuityUrl: null,
   // Her existing Mailchimp audience (found in her old site's Mailchimp popup script).
   // Signups from the popup and footer go straight into this list.
-  mailchimp: { url: "https://mc.us15.list-manage.com/subscribe/post-json", u: "e9a2e08a67ecb3932eb57fd7a", id: "6a779a0637" },
+  // Mailchimp retired the old JSON signup endpoint (404 as of Oct 2026) and her form has reCAPTCHA on,
+  // so signups post to her hosted form in a new tab, the same way Mailchimp's own embedded forms do.
+  mailchimp: { url: "https://shelenamadeit.us15.list-manage.com/subscribe/post", u: "e9a2e08a67ecb3932eb57fd7a", id: "6a779a0637" },
 
   // Email-signup popup. Waits until the visitor is engaged; never on the booking page.
   // Set to null to turn it off. The discount code itself is sent by her Mailchimp welcome email.

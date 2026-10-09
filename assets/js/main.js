@@ -94,21 +94,20 @@
         body: JSON.stringify({ _subject: "Newsletter signup", email, _template: "table" }),
       }).then((r) => { if (!r.ok) throw new Error(r.status); return "ok"; });
     }
-    return new Promise((resolve, reject) => {
-      const cb = "smiMc" + Date.now();
-      const mc = S.mailchimp;
-      const s = document.createElement("script");
-      const cleanup = () => { delete window[cb]; s.remove(); };
-      const timer = setTimeout(() => { cleanup(); reject(new Error("timeout")); }, 10000);
-      window[cb] = (res) => {
-        clearTimeout(timer); cleanup();
-        if (res.result === "success" || /already subscribed/i.test(res.msg || "")) resolve("ok");
-        else reject(new Error((res.msg || "error").replace(/<[^>]+>/g, "")));
-      };
-      s.src = `${mc.url}?u=${mc.u}&id=${mc.id}&EMAIL=${encodeURIComponent(email)}&b_${mc.u}_${mc.id}=&c=${cb}`;
-      s.onerror = () => { clearTimeout(timer); cleanup(); reject(new Error("network")); };
-      document.head.appendChild(s);
+    // Post to her hosted Mailchimp form in a new tab: Mailchimp shows its captcha (if needed)
+    // and the "confirm your email" step there. Runs inside the click, so browsers allow the tab.
+    const mc = S.mailchimp;
+    const f = document.createElement("form");
+    f.action = mc.url; f.method = "post"; f.target = "_blank"; f.hidden = true;
+    const fields = { u: mc.u, id: mc.id, EMAIL: email, MERGE0: email, mc_signupsource: "shelenamadeit.com" };
+    fields[`b_${mc.u}_${mc.id}`] = ""; // Mailchimp's own bot trap, left empty
+    Object.entries(fields).forEach(([k, v]) => {
+      const i = document.createElement("input"); i.type = "hidden"; i.name = k; i.value = v; f.appendChild(i);
     });
+    document.body.appendChild(f);
+    f.submit();
+    f.remove();
+    return Promise.resolve("handed-off");
   }
   const validEmail = (v) => /^\S+@\S+\.\S+$/.test(v);
   const store = {
@@ -126,9 +125,11 @@
       btn.disabled = true;
       msg.textContent = "Joining…";
       try {
-        await subscribe(email);
+        const how = await subscribe(email);
         store.set(JOINED, "1");
-        msg.textContent = "You're on the list. Check your inbox for your welcome code.";
+        msg.textContent = how === "handed-off"
+          ? "Almost there. Finish in the Mailchimp tab that just opened, then confirm from your inbox to get your welcome code."
+          : "You're on the list. Check your inbox for your welcome code.";
         form.reset();
         if (onDone) onDone();
       } catch {
@@ -170,7 +171,7 @@
     dlg.addEventListener("close", () => { if (!store.get(JOINED)) snooze(); });
     dlg.querySelector(".signup-close").addEventListener("click", close);
     dlg.addEventListener("click", (e) => { if (e.target === dlg) close(); }); // backdrop click
-    wireSignup(dlg.querySelector("form"), dlg.querySelector(".signup-msg"), () => setTimeout(close, 2600));
+    wireSignup(dlg.querySelector("form"), dlg.querySelector(".signup-msg"), () => setTimeout(close, 5000));
 
     let shown = false;
     const show = () => {
