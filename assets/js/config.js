@@ -29,7 +29,10 @@ window.SMI = {
     fee: 75,                             // CONFIRM: from business plan; is it credited toward the order?
   },
   timeline: { standardMonths: "2–4", rushMonths: "1–2", rushFee: 200 },
-  deposit: "50%",                        // non-refundable, due before production starts
+  deposit: "50%",
+  // Paid before Shelena designs; non-refundable; credited toward the commission if the client continues.
+  // CONFIRM amount. null shows "a design fee" with no price.
+  designFee: null,                        // non-refundable, due before production starts
 
   // Where booking requests go. FormSubmit emails each request to her inbox.
   // The FIRST submission triggers a one-time "activate" email to this address — click it once.
@@ -50,24 +53,26 @@ window.SMI = {
     snoozeDays: 14,
   },
 
-  // CONFIRM all prices. Business plan (Aug 2026) vs old site FAQ:
+  // Model (decided 2026-10-09): original designs only. Clients bring the feeling; Shelena designs.
+  // No alterations of outside garments, no recreating other designers' work.
+  // CONFIRM all prices. These are the old labour-era numbers; raise them to designer pricing when set. Business plan (Aug 2026) vs old site FAQ:
   //   bridal 1800 (site: 1500) · evening 1200 (site: prom gown 600) · menswear 600 (site: prom suit 400)
   services: [
     {
       id: "bridal", name: "Bridal", from: 1800,
-      blurb: "Wedding gowns, reception looks and the whole bridal party.",
+      blurb: "Original wedding gowns and bridal parties, designed around your story.",
       img: "bride-train", alt: "Bride in an ivory gown with a long train of hand-applied gold leaves",
       kind: "bespoke",
     },
     {
       id: "occasion", name: "Prom & Evening", from: 1200,
-      blurb: "Prom, galas, quinceañeras, milestone birthdays — a gown nobody else will wear.",
+      blurb: "Prom, galas, quinceañeras: an original gown that exists nowhere else.",
       img: "prom-couple", alt: "Prom couple in a coordinated red gown and black tuxedo",
       kind: "bespoke",
     },
     {
       id: "menswear", name: "Suits & Menswear", from: 600,
-      blurb: "Custom suits and tuxedos cut to your measurements, in any colour.",
+      blurb: "Original suits and tuxedos, designed for the man and the moment.",
       img: "suit-purple", alt: "Young man in a custom purple suit with gold trim",
       kind: "bespoke",
     },
@@ -78,14 +83,8 @@ window.SMI = {
       kind: "bespoke",
     },
     {
-      id: "alterations", name: "Fittings & Alterations", from: null, priceNote: "Quoted at fitting",
-      blurb: "Hems, take-ins and bridal alterations, including gowns bought elsewhere.",
-      img: "studio-dressform", alt: "Shelena pinning an ivory garment on a dress form",
-      kind: "alteration",
-    },
-    {
       id: "sewing", name: "Sewing Classes", from: null, priceNote: "Ask for rates",
-      blurb: "Learn to make your own pieces, one-on-one with the designer.",
+      blurb: "Learn design and dressmaking, one-on-one with the designer.",
       img: "studio-sewing", alt: "Shelena in her studio beside a dress form",
       kind: "class",
     },

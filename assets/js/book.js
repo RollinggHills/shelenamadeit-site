@@ -80,7 +80,7 @@
       $$("input, select, textarea", el).forEach((i) => (i.disabled = !on));
     });
     const intro = {
-      bespoke: "A few quick details so Shelena can prepare for your consultation.",
+      bespoke: "Tell Shelena how you want to feel. She'll design an original piece around it.",
       alteration: "So Shelena can plan your fitting around your event.",
       class: "So your lesson starts at the right level.",
       shop: "Pick your colour and size. Shelena will confirm and arrange payment with you.",
@@ -134,11 +134,20 @@
   function validate(step) {
     if (step === "1") {
       const ok = setErr("service-error", service() ? "" : "Choose one to continue.");
-      if (!ok) $("#service-options input").focus();
-      return ok;
+      if (!ok) { $("#service-options input").focus(); return false; }
+      if (kind() === "bespoke") {
+        const agreed = setErr("pledge-error", form.pledge.checked ? "" : "Every commission is an original design. Tick the box to continue.");
+        if (!agreed) { form.pledge.focus(); return false; }
+      }
+      return true;
     }
     if (step === "2") {
       const k = kind();
+      if (k === "bespoke" && checked("vibe").length > 3) {
+        setErr("vibe-error", "Choose up to three. Shelena will take it from there.");
+        $("#vibe-chips input").focus();
+        return false;
+      }
       if (k === "bespoke" || k === "alteration" || k === "illustration") {
         const date = form.event_date, none = form.no_date.checked || k === "illustration";
         let msg = "";
@@ -252,8 +261,10 @@
       rows.push(["Event date", form.no_date.checked ? "No date yet" : form.event_date.value ? fmtDate(form.event_date.value) : ""]);
     }
     if (k === "bespoke") {
+      rows.push(["Feeling", checked("vibe").join(", ")]);
+      rows.push(["Story", val("story")]);
       rows.push(["For", val("for_whom")]); rows.push(["Budget", val("budget")]);
-      if (form.addon_illustration.checked) rows.push(["Add-on", "Hand-drawn illustration"]);
+      if (form.addon_illustration.checked) rows.push(["Add-on", "Keepsake illustration"]);
     }
     if (k === "alteration") rows.push(["Garment", val("garment")]);
     if (k === "class") { rows.push(["Experience", val("level")]); rows.push(["Wants to make", val("class_goal")]); }
@@ -277,7 +288,7 @@
     $("#sum-title").textContent = s.name;
     $("#sum-price").textContent = kind() === "shop" ? s.priceNote
       : kind() === "illustration" ? `${s.priceNote} · ready in ${S.illustrationTime}`
-      : `${priceText(s)} · ${S.consult.minutes}-min consultation`;
+      : `${priceText(s)} · ${S.consult.minutes}-min design consultation`;
     $("#sum-list").innerHTML = details().slice(1)
       .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
   }
@@ -319,7 +330,7 @@
     const s = service();
     const name = [val("first_name"), val("last_name")].filter(Boolean).join(" ");
     const payload = {
-      _subject: `New ${{ shop: "order request", illustration: "illustration request" }[kind()] || "consultation request"}: ${s.name} — ${name}`,
+      _subject: `New ${{ shop: "order request", illustration: "illustration request" }[kind()] || "commission request"}: ${s.name} — ${name}`,
       _template: "table",
       _captcha: "false",
       Name: name,
@@ -338,7 +349,7 @@
         ? `Thank you for requesting a fashion illustration from Shelena Made It! Shelena will be in touch shortly to talk through your piece. Feel free to reply with any photos. Questions? Text ${S.phoneDisplay}.`
         : kind() === "shop"
         ? `Thank you for your order request for the ${s.name}! Shelena will be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
-        : `Thank you for requesting a consultation with Shelena Made It! Shelena will reach out personally to confirm a time. Bring any photos or inspiration you love. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
+        : `Thank you for beginning a commission with Shelena Made It! Shelena will reach out personally to set your design consultation. Come ready to talk about the feeling, the moment and the story; she'll design the rest. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
     }
 
     // bots fill the hidden field; pretend it worked and send nothing
@@ -395,6 +406,8 @@
   });
   form.addEventListener("change", (e) => {
     if (e.target.name === "service") { setErr("service-error", ""); applyKind(); }
+    if (e.target.name === "pledge") setErr("pledge-error", "");
+    if (e.target.name === "vibe") setErr("vibe-error", checked("vibe").length > 3 ? "Choose up to three." : "");
     if (["color", "size", "top_size", "bottom_size"].includes(e.target.name)) setErr(e.target.name + "-error", "");
     if (e.target.name === "event_date" || e.target.name === "no_date") { setErr("date-error", "", form.event_date); updateTimeline(); }
     renderSummary();

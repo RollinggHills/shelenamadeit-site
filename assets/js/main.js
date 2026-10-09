@@ -10,7 +10,7 @@
     phone: S.phoneDisplay, email: S.email, hours: S.hours, city: S.city,
     year: String(new Date().getFullYear()), years: String(new Date().getFullYear() - S.established),
     established: String(S.established), consultMinutes: String(S.consult.minutes),
-    consultFee: money(S.consult.fee), rushFee: money(S.timeline.rushFee),
+    consultFee: money(S.consult.fee), designFee: S.designFee ? `A ${money(S.designFee)} design fee` : "A design fee", rushFee: money(S.timeline.rushFee),
     standardMonths: S.timeline.standardMonths, illustrationTime: S.illustrationTime, rushMonths: S.timeline.rushMonths, deposit: S.deposit,
   };
   document.querySelectorAll("[data-fill]").forEach((el) => {

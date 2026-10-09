@@ -754,3 +754,16 @@ dialog.signup::backdrop { background: rgba(23, 20, 18, .55); backdrop-filter: bl
   input:not([type="checkbox"]):not([type="radio"]), textarea { cursor: text !important; }
   button:disabled { cursor: not-allowed !important; }
 }
+
+/* ---------- the original promise ---------- */
+.promise { margin-top: 40px; padding: 24px 28px; border: 1px solid #d8bd8f; background: rgba(216, 189, 143, .06); }
+.promise-title { font: 500 .74rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: #d8bd8f; margin: 0 0 10px; }
+.promise p:last-child { margin: 0; color: rgba(247, 243, 237, .86); font: 400 italic clamp(1.1rem, 2vw, 1.3rem)/1.45 var(--serif); }
+.promise + .timing-note { margin-top: 16px; }
+
+/* booking: the original promise */
+.pledge { margin-top: 6px; padding: 18px 20px; background: var(--paper); border-left: 2px solid var(--gold); }
+.pledge p { margin: 0 0 10px; font-size: .95rem; color: var(--ink-soft); }
+.pledge .pledge-title { font: 500 .72rem/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 8px; }
+.pledge .check { margin-top: 4px; font-weight: 400; }
+.hero-copy h1 { font-size: clamp(2.5rem, 6.2vw, 4.4rem); }

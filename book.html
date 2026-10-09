@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Book a Consultation — Shelena Made It</title>
-  <meta name="description" content="Request a 30-minute consultation for bespoke bridal, prom, evening wear, suits, children's couture, alterations or sewing classes with Shelena Shulterbrandt.">
+  <title>Begin Your Commission — Shelena Made It</title>
+  <meta name="description" content="Begin an original commission with Shelena Shulterbrandt: bridal, prom and evening, suits, children\'s couture and fashion illustration. You bring the feeling; she designs the rest.">
   <meta name="theme-color" content="#f7f3ed">
   <link rel="canonical" href="https://shelenamadeit.com/book.html">
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Shelena Made It">
   <meta property="og:url" content="https://shelenamadeit.com/book.html">
   <meta property="og:title" content="Book a Consultation — Shelena Made It">
-  <meta property="og:description" content="Request a 30-minute consultation for bespoke bridal, prom, evening wear, suits, children's couture, alterations or sewing classes with Shelena Shulterbrandt.">
+  <meta property="og:description" content="Begin an original commission with Shelena Shulterbrandt: bridal, prom and evening, suits, children\'s couture and fashion illustration. You bring the feeling; she designs the rest.">
   <meta property="og:image" content="https://shelenamadeit.com/assets/img/share-card.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -48,13 +48,19 @@
       <!-- STEP 1 -->
       <section class="step" data-step="1" aria-labelledby="s1-title">
         <p class="step-count">Step 1 of 4</p>
-        <h1 id="s1-title" tabindex="-1">What are we <em>creating?</em></h1>
-        <p class="intro">Pick the closest fit. You can tell us everything else at your consultation.</p>
+        <h1 id="s1-title" tabindex="-1">What's the <em>occasion?</em></h1>
+        <p class="intro">Every piece is an original Shelena design. Choose the occasion; you'll share the feeling next.</p>
         <fieldset class="q">
           <legend class="sr-only">Service</legend>
           <div class="choice-grid" id="service-options"><!-- filled from config.js --></div>
           <p class="error" id="service-error" role="alert"></p>
         </fieldset>
+        <div class="q pledge" data-for="bespoke">
+          <p class="pledge-title">The original promise</p>
+          <p>Shelena designs every piece herself and doesn't recreate other designers' work. You share the feeling; she creates the design.</p>
+          <label class="check"><input type="checkbox" name="pledge" id="pledge" value="Yes" aria-describedby="pledge-error"> I'm here for an original Shelena design</label>
+          <p class="error" id="pledge-error" role="alert"></p>
+        </div>
         <div class="step-nav">
           <button class="btn" type="button" data-next>Continue <span class="arrow" aria-hidden="true">→</span></button>
         </div>
@@ -77,6 +83,27 @@
           <div class="timeline-msg" id="timeline-msg" role="status" aria-live="polite" hidden></div>
         </div>
 
+        <!-- the feeling: bespoke -->
+        <fieldset class="q" data-for="bespoke">
+          <legend>The feeling <span class="optional">(pick up to 3)</span></legend>
+          <div class="chips" id="vibe-chips">
+            <span class="chip"><input type="checkbox" name="vibe" id="v-rom" value="Romantic"><label for="v-rom">Romantic</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-reg" value="Regal"><label for="v-reg">Regal</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-eth" value="Ethereal"><label for="v-eth">Ethereal</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-bold" value="Bold"><label for="v-bold">Bold</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-dra" value="Dramatic"><label for="v-dra">Dramatic</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-min" value="Modern &amp; minimal"><label for="v-min">Modern &amp; minimal</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-vin" value="Vintage glamour"><label for="v-vin">Vintage glamour</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-soft" value="Soft &amp; playful"><label for="v-soft">Soft &amp; playful</label></span>
+            <span class="chip"><input type="checkbox" name="vibe" id="v-isl" value="Island colour"><label for="v-isl">Island colour</label></span>
+          </div>
+          <p class="error" id="vibe-error" role="alert"></p>
+        </fieldset>
+        <div class="q field" data-for="bespoke">
+          <label for="story">The story or theme <span class="optional">(optional)</span></label>
+          <textarea id="story" name="story" rows="3" placeholder="A garden wedding at golden hour. Our first dance is to Etta James. I want to feel like royalty."></textarea>
+        </div>
+
         <!-- who: bespoke -->
         <fieldset class="q" data-for="bespoke">
           <legend>Who is it for?</legend>
@@ -97,7 +124,7 @@
 
         <!-- illustration add-on: bespoke -->
         <div class="q addon" data-for="bespoke">
-          <label class="check"><input type="checkbox" name="addon_illustration" value="Yes"> Add a hand-drawn illustration of my piece <span class="optional">(a keepsake of your design)</span></label>
+          <label class="check"><input type="checkbox" name="addon_illustration" value="Yes"> Add a keepsake illustration <span class="optional">(a finished, frame-ready drawing of your design)</span></label>
         </div>
 
         <!-- illustration only -->
@@ -119,17 +146,6 @@
           <p class="hint" style="margin-top:12px">Share photos or inspiration on the last step.</p>
         </fieldset>
 
-        <!-- garment: alterations -->
-        <fieldset class="q" data-for="alteration">
-          <legend>What needs altering?</legend>
-          <div class="chips">
-            <span class="chip"><input type="radio" name="garment" id="g-wed" value="Wedding gown" checked><label for="g-wed">Wedding gown</label></span>
-            <span class="chip"><input type="radio" name="garment" id="g-formal" value="Formal / prom dress"><label for="g-formal">Formal dress</label></span>
-            <span class="chip"><input type="radio" name="garment" id="g-suit" value="Suit"><label for="g-suit">Suit</label></span>
-            <span class="chip"><input type="radio" name="garment" id="g-other" value="Something else"><label for="g-other">Something else</label></span>
-          </div>
-        </fieldset>
-
         <!-- level: classes -->
         <fieldset class="q" data-for="class">
           <legend>Your sewing experience</legend>
@@ -141,7 +157,7 @@
         </fieldset>
         <div class="q field" data-for="class">
           <label for="class-goal">What would you love to make? <span class="optional">(optional)</span></label>
-          <input id="class-goal" name="class_goal" type="text" placeholder="e.g. my own prom dress, simple alterations">
+          <input id="class-goal" name="class_goal" type="text" placeholder="e.g. my own prom dress, a first collection">
         </div>
 
         <!-- colour + size: ready-to-wear (built by book.js from the product) -->
@@ -167,7 +183,7 @@
             <span class="chip"><input type="radio" name="format" id="f-phone" value="Phone call"><label for="f-phone">Phone call</label></span>
           </div>
         </fieldset>
-        <p class="consult-note" data-for="bespoke"><span><span data-fill="consultMinutes">30</span>-minute consultation · <span data-fill="consultFee">$75</span></span></p>
+        <p class="consult-note" data-for="bespoke"><span><span data-fill="consultMinutes">30</span>-minute design consultation · <span data-fill="consultFee">$75</span></span><br><span><span data-fill="designFee">A design fee</span> is due before Shelena designs your piece. It counts toward your commission.</span></p>
 
         <fieldset class="q">
           <legend>Best days <span class="optional">(pick any)</span></legend>
@@ -228,12 +244,8 @@
         </fieldset>
 
         <div class="field">
-          <label for="notes">Your vision <span class="optional">(optional)</span></label>
-          <textarea id="notes" name="notes" placeholder="Colours, silhouettes, a dress you saw somewhere, anything at all."></textarea>
-        </div>
-        <div class="field">
-          <label for="inspo">Pinterest or Instagram link <span class="optional">(optional)</span></label>
-          <input id="inspo" name="inspiration" type="url" inputmode="url" placeholder="https://">
+          <label for="notes">Anything else <span class="optional">(optional)</span></label>
+          <textarea id="notes" name="notes" placeholder="Colours you love or avoid, fabrics, how you want to feel when you walk in."></textarea>
         </div>
         <div class="field">
           <label for="source">How did you find us? <span class="optional">(optional)</span></label>
@@ -267,8 +279,8 @@
         <p class="lede">Your request is with Shelena. Here's what happens next:</p>
         <ol class="next-steps">
           <li id="done-contact">Shelena reaches out by text to confirm a time that works.</li>
-          <li>You meet for your consultation and share your vision.</li>
-          <li>You receive a sketch and an exact quote.</li>
+          <li>You meet for your design consultation and share the feeling.</li>
+          <li>Shelena designs and illustrates your original piece, with an exact quote.</li>
         </ol>
         <div class="actions">
           <a class="btn" id="done-acuity" href="#" hidden>Pick a time now <span class="arrow" aria-hidden="true">→</span></a>
