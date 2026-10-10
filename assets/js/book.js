@@ -47,7 +47,7 @@
     $("#shop-options").innerHTML = chips("color", "Colour", product.colors) +
       (product.sizing === "set" ? chips("top_size", "Top size", sizes) + chips("bottom_size", "Bottom size", sizes)
         : chips("size", "Size", sizes)) +
-      `<p class="hint" data-for="shop">Every piece is made to order. Choose “Custom” and Shelena will take your measurements.</p>`;
+      `<p class="hint" data-for="shop">Every piece is made to order. Choose “Custom” and we'll take your measurements.</p>`;
   }
 
   const service = () => choices.find((s) => s.id === (form.service.value || ""));
@@ -80,10 +80,10 @@
       $$("input, select, textarea", el).forEach((i) => (i.disabled = !on));
     });
     const intro = {
-      bespoke: "Brief your designer. Tell Shelena about the moment and how you want to feel; the design is hers to create.",
-      alteration: "So Shelena can plan your fitting around your event.",
+      bespoke: "Tell us about the moment and how you want to feel. The design starts there.",
+      alteration: "So we can plan your fitting around your event.",
       class: "So your lesson starts at the right level.",
-      shop: "Pick your colour and size. Shelena will confirm and arrange payment with you.",
+      shop: "Pick your colour and size. We'll confirm and arrange payment with you.",
       illustration: `A hand-drawn fashion illustration, usually ready in ${S.illustrationTime}.`,
     };
     $("#s2-intro").textContent = intro[k] || intro.bespoke;
@@ -144,7 +144,7 @@
     if (step === "2") {
       const k = kind();
       if (k === "bespoke" && checked("vibe").length > 3) {
-        setErr("vibe-error", "Choose up to three. Shelena will take it from there.");
+        setErr("vibe-error", "Choose up to three. We'll take it from there.");
         $("#vibe-chips input").focus();
         return false;
       }
@@ -169,7 +169,7 @@
     if (step === "4") {
       const first = form.first_name, phone = form.phone, email = form.email;
       const okE = setErr("email-error", email.value && !/^\S+@\S+\.\S+$/.test(email.value) ? "Check this email address." : "", email);
-      const okP = setErr("phone-error", digits(phone.value).length < 10 ? "Add a mobile number so Shelena can reach you." : "", phone);
+      const okP = setErr("phone-error", digits(phone.value).length < 10 ? "Add a mobile number so we can reach you." : "", phone);
       const okF = setErr("first-name-error", first.value.trim() ? "" : "Add your first name.", first);
       const bad = [!okF && first, !okP && phone, !okE && email].find(Boolean);
       if (bad) bad.focus();
@@ -202,7 +202,7 @@
     if (days < 0) { box.hidden = true; return; }
     if (kind() === "illustration") {
       html = days < 7
-        ? `<strong>That's quick.</strong> Illustrations usually take ${S.illustrationTime}. Shelena will tell you right away if she can make it.`
+        ? `<strong>That's quick.</strong> Illustrations usually take ${S.illustrationTime}. We'll tell you right away if we can make it.`
         : "<strong>Plenty of time.</strong> Your illustration will be ready well before then.";
       cls = days < 7 ? "is-warn" : "is-good";
     } else if (kind() === "alteration") {
@@ -212,7 +212,7 @@
       cls = days < 14 ? "is-warn" : "is-good";
     } else if (days < 30) {
       cls = "is-warn";
-      html = "<strong>That's very soon.</strong> Send your request today and Shelena will tell you honestly what's possible.";
+      html = "<strong>That's very soon.</strong> Send your request today and we'll tell you honestly what's possible.";
     } else if (days < 60) {
       cls = "is-warn";
       html = `<strong>This needs rush service</strong> (${t.rushMonths} months, +${money(t.rushFee)}). Book now to hold your spot.`;
@@ -347,10 +347,10 @@
       payload._replyto = val("email");
       // FormSubmit emails this to the customer so they know it arrived
       payload._autoresponse = kind() === "illustration"
-        ? `Thank you for requesting a fashion illustration from Shelena Made It! Shelena will be in touch shortly to talk through your piece. Feel free to reply with any photos. Questions? Text ${S.phoneDisplay}.`
+        ? `Thank you for requesting a fashion illustration from Shelena Made It! We'll be in touch shortly to talk through your piece. Feel free to reply with any photos. Questions? Text ${S.phoneDisplay}.`
         : kind() === "shop"
-        ? `Thank you for your order request for the ${s.name}! Shelena will be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
-        : `Thank you for beginning a commission with Shelena Made It! Shelena will reach out personally to set your design consultation. Come ready to talk about the feeling, the moment and the story; she'll design the rest. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
+        ? `Thank you for your order request for the ${s.name}! We'll be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
+        : `Thank you for beginning a commission with Shelena Made It! We'll reach out personally to set your design consultation. Come ready to talk about the feeling, the moment and the story; we'll design the rest. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
     }
 
     // bots fill the hidden field; pretend it worked and send nothing
@@ -384,12 +384,12 @@
   function done() {
     clearDraft();
     $("#done-name").textContent = val("first_name") || "love";
-    const how = { Text: "reaches out by text", Call: "calls you", Email: "emails you" }[val("contact_pref")] || "reaches out";
+    const how = { Text: "reach out by text", Call: "call you", Email: "email you" }[val("contact_pref")] || "reach out";
     $("#done-contact").textContent = kind() === "illustration"
-      ? `Shelena ${how} to talk through your illustration and timing.`
+      ? `We'll ${how} to talk through your illustration and timing.`
       : kind() === "shop"
-      ? `Shelena ${how} to confirm your size and arrange payment.`
-      : `Shelena ${how} to confirm a time that works.`;
+      ? `We'll ${how} to confirm your size and arrange payment.`
+      : `We'll ${how} to confirm a time that works.`;
     if (S.acuityUrl && !["shop", "illustration"].includes(kind())) { const a = $("#done-acuity"); a.href = S.acuityUrl; a.hidden = false; }
     $("#summary").hidden = true;
     show("done");

@@ -87,7 +87,7 @@
       });
       const body = await r.json().catch(() => ({}));
       if (!r.ok || String(body.success) === "false") throw new Error(body.message || r.status);
-      msg.textContent = "Sent to Shelena. Thank you! She'll be in touch if anything needs a second look.";
+      msg.textContent = "Sent. Thank you! We'll be in touch if anything needs a second look.";
       try { localStorage.removeItem(KEY); } catch { /* ignore */ }
     } catch {
       const text = Object.entries(payload).filter(([k]) => !k.startsWith("_")).map(([k, v]) => `${k}: ${v}`).join("\n");
