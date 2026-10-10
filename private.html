@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>About — Shelena Made It</title>
-  <meta name="description" content="Born in St. Croix. Designing for the world.">
+  <title>Private Inquiries — Shelena Made It</title>
+  <meta name="description" content="For stylists, managers and clients with a defined moment and a defined timeline.">
   <meta name="theme-color" content="#f7f3ed">
-  <link rel="canonical" href="https://shelenamadeit.com/about.html">
+  <link rel="canonical" href="https://shelenamadeit.com/private.html">
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Shelena Made It">
-  <meta property="og:url" content="https://shelenamadeit.com/about.html">
-  <meta property="og:title" content="About — Shelena Made It">
-  <meta property="og:description" content="Born in St. Croix. Designing for the world.">
+  <meta property="og:url" content="https://shelenamadeit.com/private.html">
+  <meta property="og:title" content="Private Inquiries — Shelena Made It">
+  <meta property="og:description" content="For stylists, managers and clients with a defined moment and a defined timeline.">
   <meta property="og:image" content="https://shelenamadeit.com/assets/img/share-card.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -61,18 +61,36 @@
 
   <main id="main">
 
-    <section class="section">
-      <div class="wrap split">
-        <div class="tall reveal"><img src="assets/img/shelena-800.webp" srcset="assets/img/shelena-800.webp 800w, assets/img/shelena-1400.webp 1400w" sizes="(min-width: 900px) 50vw, 100vw" width="960" height="1440" loading="lazy" alt="Shelena in the studio with a measuring tape around her neck"></div>
-        <div class="prose reveal">
-          <h1>Born in St. Croix. <em>Designing for the world.</em></h1>
-          <p class="lede">I learned to sew watching my grandmother make my school clothes. I haven't stopped since.</p>
-          <p>I'm Shelena, a fashion designer and illustrator. I earned my BFA in Fashion Design at the Art Institute of Houston and worked alongside Victoria's Secret, David's Bridal and Nordstrom before opening my own studio in <span data-fill="established">2018</span>.</p>
-          <p>Today I design original gowns, suits and couture for clients in Austin, Houston, the Bay Area and across the world. Every piece begins as a drawing, then becomes something that has never existed before.</p>
-          <p>I don't recreate other designers' work. I listen to how you want to feel, and I design that.</p>
-          <p class="sign-off">Tell me about your moment.</p>
-          <a class="btn" href="book.html">Begin a consultation <span class="arrow" aria-hidden="true">→</span></a>
-        </div>
+    <section class="page-head">
+      <div class="wrap" style="max-width:860px">
+        <p class="eyebrow">Stylists &amp; private clients</p>
+        <h1>Private <em>Inquiries</em></h1>
+        <p class="lede">For stylists, managers and clients with a defined moment and a defined timeline. Every inquiry is read by Shelena personally.</p>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap" style="max-width:860px">
+        <form id="private-form" class="mform" novalidate>
+          <div class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field-row">
+            <div class="field"><label for="p-name">Name</label><input id="p-name" name="client_name" autocomplete="name" required></div>
+            <div class="field"><label for="p-email">Email</label><input id="p-email" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <fieldset class="q"><legend>Role</legend><div class="chips"><span class="chip"><input type="radio" name="role" id="role-0" value="Stylist" checked><label for="role-0">Stylist</label></span><span class="chip"><input type="radio" name="role" id="role-1" value="Manager"><label for="role-1">Manager</label></span><span class="chip"><input type="radio" name="role" id="role-2" value="Client"><label for="role-2">Client</label></span><span class="chip"><input type="radio" name="role" id="role-3" value="Other"><label for="role-3">Other</label></span></div></fieldset>
+          <div class="field-row">
+            <div class="field"><label for="p-phone">Phone</label><input id="p-phone" name="phone" type="tel" autocomplete="tel"></div>
+            <div class="field"><label for="p-city">City</label><input id="p-city" name="city"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="p-moment">The moment</label><input id="p-moment" name="moment" placeholder="Event, shoot, tour or campaign" required></div>
+            <div class="field"><label for="p-date">Date needed</label><input id="p-date" name="date_needed" type="date"></div>
+          </div>
+          <fieldset class="q"><legend>Fittings</legend><div class="chips"><span class="chip"><input type="radio" name="fittings" id="fittings-0" value="In person" checked><label for="fittings-0">In person</label></span><span class="chip"><input type="radio" name="fittings" id="fittings-1" value="By video"><label for="fittings-1">By video</label></span><span class="chip"><input type="radio" name="fittings" id="fittings-2" value="On-site travel"><label for="fittings-2">On-site travel</label></span></div></fieldset>
+          <div class="field"><label for="p-discretion">Discretion needs <span class="optional">(optional)</span></label><input id="p-discretion" name="discretion"></div>
+          <div class="field"><label for="p-inspo">Inspiration, in words or colors <span class="optional">(optional)</span></label><textarea id="p-inspo" name="inspiration"></textarea></div>
+          <div class="step-nav"><button class="btn" type="submit" id="p-submit">Send private inquiry <span class="arrow" aria-hidden="true">→</span></button></div>
+          <p class="m-msg" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
   </main>
@@ -135,5 +153,6 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/private.js"></script>
 </body>
 </html>

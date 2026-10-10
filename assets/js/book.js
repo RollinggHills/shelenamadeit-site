@@ -347,10 +347,10 @@
       payload._replyto = val("email");
       // FormSubmit emails this to the customer so they know it arrived
       payload._autoresponse = kind() === "illustration"
-        ? `Thank you for requesting a fashion illustration from Shelena Made It! We'll be in touch shortly to talk through your piece. Feel free to reply with any photos. Questions? Text ${S.phoneDisplay}.`
+        ? `Thank you for requesting a fashion illustration from Shelena Made It. We'll be in touch shortly to talk through your piece. Feel free to reply with any photos. Questions? Text ${S.phoneDisplay}.`
         : kind() === "shop"
-        ? `Thank you for your order request for the ${s.name}! We'll be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
-        : `Thank you for starting a consultation with Shelena Made It! We'll reach out personally to set your design consultation. Come ready to talk about the feeling, the moment and the story; we'll design the rest. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
+        ? `Thank you for your order request for the ${s.name}. We'll be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
+        : `Thank you for trusting us with a moment this important. We'll be in touch personally to set your design consultation. With elegance, Shelena Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
     }
 
     // bots fill the hidden field; pretend it worked and send nothing
@@ -437,6 +437,6 @@
   applyKind();
   updateTimeline();
   renderSummary();
-  // commissions always open on step 1 so the original promise is seen and agreed first
+  // bespoke requests always open on step 1 so the original promise is seen and agreed first
   show(wanted && service() && kind() !== "bespoke" ? "2" : "1", { focus: false });
 })();

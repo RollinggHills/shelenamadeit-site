@@ -813,3 +813,35 @@ dialog.signup::backdrop { background: rgba(23, 20, 18, .55); backdrop-filter: bl
 }
 .mgrid > .mfield { min-width: 0; }
 .minput input { width: 100%; }
+
+/* ---------- Oct 2026 brief: quiet luxury, work-led ---------- */
+.hero-copy h1 { font-size: clamp(3rem, 8vw, 5.6rem); }
+@media (min-width: 900px) { .hero .wrap { grid-template-columns: .9fr 1.1fr; } .hero-media { max-width: 600px; } }
+
+.promise3 { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.promise3 ul { list-style: none; margin: 0; padding: 26px 0; display: grid; gap: 14px; }
+.promise3 li { color: var(--ink-soft); font-size: .98rem; }
+.promise3 b { display: block; font: 500 1.35rem/1.2 var(--serif); color: var(--ink); margin-bottom: 2px; }
+@media (min-width: 800px) { .promise3 ul { grid-template-columns: repeat(3, 1fr); gap: 40px; padding: 34px 0; } }
+
+.work-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+.work-item { position: relative; display: block; overflow: hidden; background: var(--linen); text-decoration: none; }
+.work-item img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; transition: transform 1.2s var(--ease); }
+.work-item:hover img { transform: scale(1.03); }
+.work-item span {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 14px;
+  background: linear-gradient(transparent, rgba(23, 20, 18, .6)); color: var(--ivory);
+  font: 400 italic 1.25rem/1.2 var(--serif);
+}
+@media (min-width: 800px) {
+  .work-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 280px; gap: 18px; }
+  .work-item img { aspect-ratio: auto; }
+  .work-item--tall { grid-row: span 2; }
+}
+
+.gallery--large { columns: 1; }
+@media (min-width: 700px) { .gallery--large { columns: 2; column-gap: 20px; } }
+.page-head .hero-cta { margin-bottom: 0; }
+.page-note { margin-top: 18px; }
+.sign-off { font: 400 italic 1.4rem/1.3 var(--serif); color: var(--ink); margin-top: 18px; }
+.prose h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
