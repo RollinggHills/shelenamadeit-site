@@ -19,7 +19,7 @@ window.SMI = {
   // Seasonal banner on the homepage. Set to null to hide it.
   // From her Instagram bio (2026): "Limited Prom 2027 Commissions · By Appointment Only · ATX"
   announcement: {
-    text: "Now booking Prom 2027. Limited commissions.",
+    text: "Now booking Prom 2027. Limited spots.",
     link: "book.html?service=occasion",
     cta: "Reserve yours",
   },

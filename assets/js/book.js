@@ -136,7 +136,7 @@
       const ok = setErr("service-error", service() ? "" : "Choose one to continue.");
       if (!ok) { $("#service-options input").focus(); return false; }
       if (kind() === "bespoke") {
-        const agreed = setErr("pledge-error", form.pledge.checked ? "" : "Every commission is an original design. Tick the box to continue.");
+        const agreed = setErr("pledge-error", form.pledge.checked ? "" : "Every piece is an original design. Tick the box to continue.");
         if (!agreed) { form.pledge.focus(); return false; }
       }
       return true;
@@ -331,7 +331,7 @@
     const s = service();
     const name = [val("first_name"), val("last_name")].filter(Boolean).join(" ");
     const payload = {
-      _subject: `New ${{ shop: "order request", illustration: "illustration request" }[kind()] || "commission request"}: ${s.name} — ${name}`,
+      _subject: `New ${{ shop: "order request", illustration: "illustration request" }[kind()] || "consultation request"}: ${s.name} — ${name}`,
       _template: "table",
       _captcha: "false",
       Name: name,
@@ -350,7 +350,7 @@
         ? `Thank you for requesting a fashion illustration from Shelena Made It! We'll be in touch shortly to talk through your piece. Feel free to reply with any photos. Questions? Text ${S.phoneDisplay}.`
         : kind() === "shop"
         ? `Thank you for your order request for the ${s.name}! We'll be in touch shortly to confirm your colour, size and payment. Questions? Text ${S.phoneDisplay}.`
-        : `Thank you for beginning a commission with Shelena Made It! We'll reach out personally to set your design consultation. Come ready to talk about the feeling, the moment and the story; we'll design the rest. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
+        : `Thank you for starting a consultation with Shelena Made It! We'll reach out personally to set your design consultation. Come ready to talk about the feeling, the moment and the story; we'll design the rest. Questions? Text ${S.phoneDisplay}. — Shelena Made It`;
     }
 
     // bots fill the hidden field; pretend it worked and send nothing
